@@ -1,0 +1,38 @@
+{
+  "manifest_version": 3,
+  "name": "X & Xiaohongshu Photo Saver",
+  "version": "0.2.0",
+  "description": "Right-click X / Xiaohongshu images to save into macOS Photos (no watermark).",
+  "permissions": [
+    "contextMenus",
+    "nativeMessaging",
+    "notifications"
+  ],
+  "host_permissions": [
+    "https://x.com/*",
+    "https://twitter.com/*",
+    "https://*.twimg.com/*",
+    "https://*.xiaohongshu.com/*",
+    "https://*.xhscdn.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.xiaohongshu.com/*",
+        "https://xiaohongshu.com/*"
+      ],
+      "js": ["content_xhs.js"],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ],
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  },
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAv8oHn9g6icwI1NJaZIWlRuY+L0T9xGE0af++3XeXpJTt2gKnWMDrsiIJHwogtvsDNH+xSdOwUzaK3D9QJKXN27kyT1azBcd5n/gl2UM040rkgD6Fp9L4AwsfrkuAzyf11Rv7eZyKaYD2kkpBTXQ2gSMU4B4FvGeah9krXa4apHQd+EdJ4DQxxWh1UnGM6kL9MLtqUNolyW9/SoNw4cRZqZI5bNiHnFAoRViMoEyjBzaZwhOuSrqnA+N0T/+X55myNDjDvyDjeUB5PWn9dsZqL6OFNTEIBJJKwv/I+OYK3NVE4JzeE6ZxZKmrwoaI6yP8BsyGNpNkvK0hMpMklMnUNwIDAQAB"
+}

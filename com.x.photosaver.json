@@ -1,0 +1,9 @@
+{
+  "name": "com.x.photosaver",
+  "description": "X Photo Saver native host",
+  "path": "/Users/moonlight/x-photo-saver/host.py",
+  "type": "stdio",
+  "allowed_origins": [
+    "chrome-extension://cnimapbahdbbaifdpnaknbhmekjbgien/"
+  ]
+}
