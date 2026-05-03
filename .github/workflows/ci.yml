@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: Python lint (ruff)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install ruff
+        run: pip install ruff==0.6.9
+      - name: ruff check
+        run: ruff check .
+      - name: ruff format --check
+        run: ruff format --check .
+      - name: Compile host.py
+        run: python -m py_compile host.py
+
+  schema:
+    name: Validate manifests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install jsonschema
+        run: pip install jsonschema==4.23.0
+      - name: Validate extension manifest (MV3)
+        run: python schemas/validate.py extension/manifest.json schemas/mv3.schema.json
+      - name: Validate native messaging host manifest
+        run: python schemas/validate.py com.x.photosaver.json schemas/native_host.schema.json
+      - name: Verify extension ID matches embedded public key
+        run: python schemas/check_extension_id.py
+
+  shellcheck:
+    name: Shell lint (shellcheck)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get install -y shellcheck
+      - run: shellcheck install.sh

@@ -4,14 +4,16 @@
 Reads JSON over stdin (4-byte length prefix), downloads image,
 writes EXIF UserComment with source tweet URL, imports to Photos.app.
 """
-import sys
+
+import contextlib
 import json
-import struct
-import urllib.request
-import subprocess
-import tempfile
 import os
 import re
+import struct
+import subprocess
+import sys
+import tempfile
+import urllib.request
 from pathlib import Path
 
 
@@ -202,10 +204,8 @@ def main():
         write_exif(path, tweet_url)
         ok = import_to_photos(path)
         size = path.stat().st_size
-        try:
+        with contextlib.suppress(OSError):
             os.unlink(path)
-        except OSError:
-            pass
         send_message({"ok": ok, "url": used, "format": fmt, "bytes": size, "tweet": tweet_url})
     except Exception as e:
         send_message({"ok": False, "error": str(e)})

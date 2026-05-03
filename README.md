@@ -1,8 +1,24 @@
 # X & Xiaohongshu Photo Saver
 
+[![CI](https://github.com/FlyTOmeLight/x-photo-saver/actions/workflows/ci.yml/badge.svg)](https://github.com/FlyTOmeLight/x-photo-saver/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+[![macOS](https://img.shields.io/badge/macOS-Photos.app-blue)](https://support.apple.com/photos)
+
 Right-click an image on **X (Twitter)** or **Xiaohongshu (Rednote / 小红书)** in Chrome and save it directly into the macOS **Photos** app — original quality, no watermark. Once it's in Photos, iCloud Photos syncs it to your iPhone automatically.
 
 > macOS only. Chrome, Chrome Canary, Brave, and Arc are supported.
+
+## Demo
+
+![Demo](docs/demo.gif)
+
+> Drop a `demo.gif` into `docs/` to populate the screenshot above. Suggested:
+> 30s recording showing right-click → "Save image to Photos" → notification →
+> the image appearing in Photos.app.
+
+| Right-click on X | Right-click on Xiaohongshu | Photos.app result |
+|---|---|---|
+| ![X menu](docs/screenshot-x.png) | ![XHS menu](docs/screenshot-xhs.png) | ![Photos](docs/screenshot-photos.png) |
 
 ---
 

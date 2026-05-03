@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Chrome MV3 Extension Manifest (subset)",
+  "type": "object",
+  "required": ["manifest_version", "name", "version"],
+  "properties": {
+    "manifest_version": { "const": 3 },
+    "name": { "type": "string", "minLength": 1 },
+    "version": { "type": "string", "pattern": "^\\d+(\\.\\d+){0,3}$" },
+    "description": { "type": "string" },
+    "permissions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "activeTab", "alarms", "background", "bookmarks", "browsingData",
+          "clipboardRead", "clipboardWrite", "contextMenus", "cookies",
+          "debugger", "declarativeContent", "declarativeNetRequest",
+          "declarativeNetRequestFeedback", "downloads", "fontSettings",
+          "gcm", "geolocation", "history", "identity", "idle", "management",
+          "nativeMessaging", "notifications", "offscreen", "pageCapture",
+          "power", "printerProvider", "privacy", "proxy", "scripting",
+          "search", "sessions", "sidePanel", "storage", "system.cpu",
+          "system.display", "system.memory", "system.storage", "tabCapture",
+          "tabGroups", "tabs", "topSites", "tts", "ttsEngine", "unlimitedStorage",
+          "webNavigation", "webRequest", "webRequestBlocking"
+        ]
+      }
+    },
+    "host_permissions": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^(https?|\\*)://" }
+    },
+    "background": {
+      "type": "object",
+      "properties": {
+        "service_worker": { "type": "string" },
+        "type": { "enum": ["module", "classic"] }
+      },
+      "required": ["service_worker"],
+      "additionalProperties": false
+    },
+    "content_scripts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["matches", "js"],
+        "properties": {
+          "matches": { "type": "array", "items": { "type": "string" } },
+          "js": { "type": "array", "items": { "type": "string" } },
+          "css": { "type": "array", "items": { "type": "string" } },
+          "run_at": { "enum": ["document_start", "document_end", "document_idle"] },
+          "all_frames": { "type": "boolean" },
+          "match_about_blank": { "type": "boolean" }
+        }
+      }
+    },
+    "icons": {
+      "type": "object",
+      "patternProperties": {
+        "^(16|32|48|64|96|128|256)$": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "key": { "type": "string" },
+    "action": { "type": "object" },
+    "options_page": { "type": "string" },
+    "options_ui": { "type": "object" }
+  },
+  "additionalProperties": true
+}
