@@ -178,13 +178,13 @@ def write_exif(path: Path, tweet_url: str):
 
 
 def import_to_photos(path: Path) -> bool:
-    script = f'''
+    script = f"""
     tell application "Photos"
         activate
         delay 0.3
         import POSIX file "{path}" skip check duplicates false
     end tell
-    '''
+    """
     r = subprocess.run(["osascript", "-e", script], capture_output=True, text=True)
     return r.returncode == 0
 
